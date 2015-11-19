@@ -1,0 +1,5 @@
+#Redirect to www location with subdirectory
+RewriteEngine on
+RewriteBase /
+RewriteCond %{HTTP_HOST} tobdong.local [NC]
+RewriteRule ^(.*)$ http://tobdong.local/public [R=301,NC]
