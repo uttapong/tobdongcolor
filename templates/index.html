@@ -48,7 +48,7 @@ function getEvent(token,uid){
         alladmin.forEach(function(ele) {
           if(ele.id==uid){ auth=true;}
         });
-        if(auth)window.location="main";
+        if(auth)window.location="main.html";
         else{
           bootbox.alert("ขออภัย ท่านยังไม่ได้กดเข้าร่วมกีฬาสีประจำปี\nกรุณากดเข้าร่วมเพื่อเลือกสีของท่าน!", function() {
           });
