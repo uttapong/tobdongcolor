@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="css/sc-btn.css" />
         <link rel="stylesheet" href="css/style.css" />
     </head>
-    <body>
+    <body class="login">
       <script>
   window.fbAsyncInit = function() {
     FB.init({
@@ -69,6 +69,7 @@ function fblogin(){
   }
 });
 }
+
 </script>
 
       <div class="container">

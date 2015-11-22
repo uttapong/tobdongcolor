@@ -9,12 +9,12 @@
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,900,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/sc-btn.css" />
         <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/spin.css" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
       <script src="js/bootbox.min.js"></script>
-      <style>
-      </style>
+      <script src="js/winwheel_1.2.js"></script>
     </head>
     <body>
       <script>
@@ -58,20 +58,21 @@
 
    $( document ).ready(function() {
   $('.userlink').tooltip();
+
 });
 
-
+var userRank='NA';
    function getInfo(fbid){
      $.ajax({
      url: "lib.php",
      method: "POST",
      data: { action:'getinfo',fbid: fbid }
    }).done(function(res) {
-     console.log(res);
-     if(res.color)$('#mycolor').html( res.color );else $('#mycolor').html('-');
      if(res.rank){
        $('#myrank').html( res.rank );
-       if(!res.color)$('#mycolor').html(' <a href="random.php" class="btn btn-lg btn-success" role="button">จับสลากเลือกสีสำหรับนักกีฬา</a> <button class="btn btn-lg btn-warning" role="button">จับสลากเลือกสีสำหรับกองเชียร์</button>');
+       userRank=res.rank;
+       begin(userRank,fbid);
+       //if(!res.color)$('#mycolor').html(' <button class="btn btn-lg btn-success" role="button">จับสลากเลือกสีสำหรับนักกีฬา</button> <button class="btn btn-lg btn-warning" role="button">จับสลากเลือกสีสำหรับกองเชียร์</button>');
      }else $('#myrank').html('ท่านยังไม่ถูกประเมินมือ');
 
    });
@@ -89,7 +90,7 @@
             <div class="user-info">
               <p style="">Welcome, <span id="myname">...</span><p>
               <p style="">Rank: <span id="myrank">...</span><p>
-                <p style="">Team: <span id="mycolor">...</span><p>
+                <p style="">Team: <span id="mycolor">ขอให้โชคดี</span><p>
             </div>
 
           </div>
@@ -97,7 +98,17 @@
           <hr />
 
 <?php
-require('config.php');
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$dbname="tobdongcolor";
+// Create connection
+$conn = new mysqli($servername, $username, $password,$dbname);
+$conn->query("SET NAMES UTF8");
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 function getColorAll($color){
   global $conn;
@@ -109,41 +120,20 @@ function getColorAll($color){
 ?>
 
           <div class="row">
-            <div class="col-xs-12 col-md-6 col-lg-3">
-                <div class='color-head' style="background-color: #3498db;">สีฟ้า</div>
 
-                <div id="B-Team"></div>
-                <?php
-                getColorAll('B');
-                ?>
+            <div class="col-xs-12">
+              <div style="width:100%;height: 582px;text-align:center;margin-top: 20px;" class="the_wheel">
+              <canvas class="the_canvas" id="myDrawingCanvas" width="434" height="434" style="margin-top:74px;">
+  							<p class="noCanvasMsg" align="center">ขออภัยเว็บบราวเซอร์ของคุณเก่าเกินไป</p>
+  						</canvas>
+            </div>
             </div>
 
-            <div class="col-xs-12 col-md-6 col-lg-3">
-              <div class='color-head' style="background-color: #f1c40f;">สีเหลือง</div>
+            <div class="col-xs-12">
+                <div class='color-head' style="background-color: #eee;"><button onClick="startSpin();" class='btn btn-success btn-lg' role='button'>หมุนจับสลาก</button></div>
 
-              <div id="Y-Team"></div>
-              <?php
-              getColorAll('Y');
-              ?>
             </div>
 
-            <div class="col-xs-12 col-md-6 col-lg-3">
-              <div class='color-head' style="background-color: #FF6CA8;">สีชมพู</div>
-
-              <div id="P-Team"></div>
-              <?php
-              getColorAll('P');
-              ?>
-            </div>
-
-            <div class="col-xs-12 col-md-6 col-lg-3">
-              <div class='color-head' style="background-color: #1abc9c">สีเขียว</div>
-
-              <div id="G-Team"></div>
-              <?php
-              getColorAll('G');
-              ?>
-            </div>
           </div>
 </div>
 
