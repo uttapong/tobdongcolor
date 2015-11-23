@@ -22,6 +22,7 @@
 
       FB.api('/me?fields=picture.width(120).height(120),name,id', function(response)
       {
+        console.log(response);
         $('#loading').hide()
         $('#myname').html(response.name);
         $("#myimg").attr("src",response.picture.data.url);
