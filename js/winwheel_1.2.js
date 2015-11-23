@@ -58,10 +58,10 @@ var determinedGetUrl = "lib.php?action=random&rank=";  	 // Set to URL of the se
 // In order to work correctly the the start and end angles need to match the begining and end of the segments for the prizes in your wheel image.
 // Thinking about a clock face, 0 is at the 12 o'clock, 90 is at the 3 o'clock, 180 is 6 o'clock, 270 is 9 o'clock.
 var prizes = new Array();
-prizes[0] = {"name" : "ทีมพิงค์", "startAngle" : 0,   "endAngle" : 89};  // Note how prize end angle is 1 less than start angle of next prize so no overlap.
-prizes[1] = {"name" : "ทีมกรีน", "startAngle" : 90,  "endAngle" : 179};
-prizes[2] = {"name" : "ทีมเยลโล่ว", "startAngle" : 180,  "endAngle" : 269};
-prizes[3] = {"name" : "ทีมบลู", "startAngle" : 270, "endAngle" : 360};
+prizes[0] = {"name" : " #ทีมพิงค์", "startAngle" : 0,   "endAngle" : 89};  // Note how prize end angle is 1 less than start angle of next prize so no overlap.
+prizes[1] = {"name" : " #ทีมกรีน", "startAngle" : 90,  "endAngle" : 179};
+prizes[2] = {"name" : " #ทีมเยลโล่ว", "startAngle" : 180,  "endAngle" : 269};
+prizes[3] = {"name" : " #ทีมบลู", "startAngle" : 270, "endAngle" : 360};
 
 // Idea: an idea I had for this, but not implimented, is that if you wanted some the prizes / segments in your wheel to be "winners" and some to be "loosers"
 // you could add a property to the items in the prize array stating if win/loose and then in the doSpin function code that is executed when the spinning has
@@ -355,9 +355,28 @@ function doSpin()
 				{
 					// Do something with the knowlege. For this example the user is just alerted, but you could play a sound,
 					// change the innerHTML of a div to indicate the prize etc - up to you.
-					bootbox.alert("ขอแสดงความยินดีคุณได้อยู่" + prizes[x]['name'], function() {
-						window.location="main.php";
+					color="";
+					if(x==0)color="pink.svg";
+					else if(x==1)color="green.svg";
+					else if(x==2)color="yellow.svg";
+					else color="blue.svg";
+					swal({  imageUrl: "images/"+color, title: "Congratulation",
+					   text: "คุณได้อยู่" + prizes[x]['name'],
+						    showCancelButton: false,
+								   confirmButtonColor: "#DD6B55",
+									    confirmButtonText: "ถัดไป",
+											   closeOnConfirm: false,
+											 html:true },
+					function(){
+						FB.ui({
+  method: 'share',
+  href: 'https://www.tobdong.ski',
+}, function(response){
+	window.location="main.php";
+});
+						//window.location="main.php";
 					});
+
 					break;
 				}
 			}

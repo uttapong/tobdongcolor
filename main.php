@@ -1,20 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8"/>
-        <title>Slim Framework for PHP 5</title>
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-        <link href='https://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,900,700' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="css/sc-btn.css" />
-        <link rel="stylesheet" href="css/style.css" />
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-      <script src="js/bootbox.min.js"></script>
-      <style>
-      </style>
+      <?php require('include.php'); ?>
     </head>
     <body>
       <script>
@@ -35,13 +22,20 @@
 
       FB.api('/me?fields=picture.width(120).height(120),name,id', function(response)
       {
+        $('#loading').hide()
         $('#myname').html(response.name);
         $("#myimg").attr("src",response.picture.data.url);
         getInfo(response.id);
       });
     }
     else {
-      FB.login();
+      FB.login(function(response) {
+      if (response.authResponse) {
+       getEvent(response.authResponse.accessToken,response.authResponse.userID);
+      } else {
+       sweetAlert("Oops...", "ขออภัยท่านกดยกเลิกหรือเข้าสู่ระบบผิดพลาด", "error");
+      }
+  });
     }
   });
 
@@ -73,6 +67,7 @@
        $('#myrank').html( res.rank );
        if(!res.color)$('#mycolor').html(' <a href="random.php" class="btn btn-lg btn-success" role="button">จับสลากเลือกสีสำหรับนักกีฬา</a> <button class="btn btn-lg btn-warning" role="button">จับสลากเลือกสีสำหรับกองเชียร์</button>');
      }else $('#myrank').html('ท่านยังไม่ถูกประเมินมือ');
+     $('#user-data').slideDown();
 
    });
    }
@@ -84,6 +79,8 @@
         <img src="images/tobdong_logo.svg" style="height: 100px;"/></div>
         <div style="width: 100%;text-align:center;"><h2 style="font-family: 'Fredoka One', cursive;">Tobdong Annual Game 2015</h2></div>
         <hr />
+        <div id="loading" style="text-align:center"><img style="height: 100px;" src='images/loading.svg' /> กำลังโหลดข้อมูล...</div>
+        <div id="user-data" style="display:none;">
           <div><img id="myimg" src="" style="height:120px;width:120px;float: left; margin:10px 0 10px 5px;border-radius: 75px;"/></div>
           <div style="float: left">
             <div class="user-info">
@@ -93,6 +90,7 @@
             </div>
 
           </div>
+        </div>
           <div style="clear:both"></div>
           <hr />
 
@@ -151,9 +149,9 @@ function getColorAll($color){
 
 
 
-      <footer class="footer">
-        <p>&copy; Company 2014</p>
-      </footer>
+<footer class="footer">
+  <p>&copy; Tobdong Badminton Team 2015. All right reserved.</p>
+</footer>
 
     </div> <!-- /container -->
 

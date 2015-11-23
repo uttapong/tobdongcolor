@@ -81,7 +81,7 @@ function random($rank,$fbid){
   $color=$ran_arr[$rand_key];
   //print_r($ran_arr);
   //echo $ran_arr[$rand_key];
-  $conn->query("update member set color='{$color}' where fbid='{$fbid}';");
+  $conn->query("update member set color='{$color}',player=1 where fbid='{$fbid}';");
 
   if($color=='P')$price=0;
   else if($color=='G')$price=1;
