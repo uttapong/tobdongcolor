@@ -68,7 +68,11 @@ function random($rank,$fbid){
   $result = $conn->query("select color,count(id) as remain from member where player=1 and rank='{$rank}' group by color");
   while($row = $result->fetch_assoc())
   {
-    $arr_result[$row[color]]=16-$row[remain];
+    if($rank=='C'||$rank=='P')
+      $arr_result[$row[color]]=6-$row[remain];
+    elseif($rank=='S')
+      $arr_result[$row[color]]=4-$row[remain];
+    else $arr_result[$row[color]]=10-$row[remain];
   }
 //  print_r($arr_result);
   foreach($arr_result as $key => $value)

@@ -15,6 +15,13 @@ body.login{
   display:block;
   margin: 40px 0 0 30px;
 }
+.header h4{
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.4em;
+  color: white;
+  display:block;
+  margin: 40px 0 0 30px;
+}
 .header img, .header h1{
   float: left;
 }
