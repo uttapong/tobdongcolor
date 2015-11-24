@@ -365,7 +365,7 @@ function doSpin()
 						    showCancelButton: false,
 								   confirmButtonColor: "#DD6B55",
 									    confirmButtonText: "ถัดไป",
-											   closeOnConfirm: false,
+											   closeOnConfirm: true,
 											 html:true },
 					function(){
 						FB.ui({
