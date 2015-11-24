@@ -19,14 +19,14 @@
     FB.getLoginStatus(function(response) {
       //console.log(response);
     if (response.status === 'connected') {
-
+      var fbid=response.authResponse.userID;
       FB.api('/me?fields=picture.width(120).height(120),name,id', function(response)
       {
         console.log(response);
         $('#loading').hide()
         $('#myname').html(response.name);
         $("#myimg").attr("src",response.picture.data.url);
-        getInfo(response.id);
+        getInfo(fbid);
       });
     }
     else {
