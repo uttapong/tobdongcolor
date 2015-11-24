@@ -70,7 +70,9 @@
      }else $('#myrank').html('ท่านยังไม่ถูกประเมินมือ');
      $('#user-data').slideDown();
 
-   });
+   }).fail(function() {
+    swal("อินเทอร์เนตกากมาก", "กรุณาพิจารณาเปลี่ยนค่ายอินเทอร์เนต", "error");
+  });
    }
 
 </script>
@@ -102,7 +104,7 @@ function getColorAll($color){
   global $conn;
   $result = $conn->query("select name,fbid,rank  from member where color='{$color}' ");
   while($row=$result->fetch_assoc()){
-    echo "<div class='userimg' ><a href='https://www.facebook.com/{$row[id]}' class='userlink' data-toggle='tooltip' title='{$row[name]}'><img class='userphoto' src='http://graph.facebook.com/{$row[fbid]}/picture?type=square'></img></a></div>";
+    echo "<div class='userimg' ><a target='_blank' href='https://www.facebook.com/{$row[fbid]}' class='userlink' data-toggle='tooltip' title='{$row[name]}'><img class='userphoto' src='http://graph.facebook.com/{$row[fbid]}/picture?type=square'></img></a></div>";
   }
 }
 ?>

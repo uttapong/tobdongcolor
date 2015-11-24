@@ -64,6 +64,7 @@ hr {
     width: 100%;
     border-radius: 4px;
     text-align: center;
+    margin-bottom: 10px;
 }
 .userimg{
   float: left;

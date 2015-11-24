@@ -11,3 +11,9 @@
 
 <meta charset="utf-8"/>
 <title>Tobdong Badminton Team: App</title>
+<meta property="fb:app_id" content="612396988819496" />
+<meta property="og:title" content="แอพจับสลากงานกีฬาสีทีมแบดมินตันตบโด่ง2015" />
+<meta property="og:site_name" content="Tobdong Badminton Team"/>
+<meta property="og:url" content="http://www.tobdong.ski" />
+<meta property="og:description" content="แอพจับสลากสี ทีมแบดมินตันตบโด่ง จัดเป็นประจำทุกปี ครั้งนี้จัดเป็นปีที่ 2 ประจำปี 2015 ร่วม แข่ง สนุก ลุ้น เชียร์ อิ่ม ได้ในวันที่ 17 ธค 2015" />
+<meta property="og:image"  content="http://www.tobdong.ski/images/tobdong_logo.svg" />

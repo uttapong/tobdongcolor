@@ -71,7 +71,20 @@ var userRank='NA';
        //if(!res.color)$('#mycolor').html(' <button class="btn btn-lg btn-success" role="button">จับสลากเลือกสีสำหรับนักกีฬา</button> <button class="btn btn-lg btn-warning" role="button">จับสลากเลือกสีสำหรับกองเชียร์</button>');
      }else $('#myrank').html('ท่านยังไม่ถูกประเมินมือ');
      $('#user-data').slideDown();
-   });
+   }).fail(function() {
+    swal("อินเทอร์เนตกากมาก", "กรุณาพิจารณาเปลี่ยนค่ายอินเทอร์เนต", "error");
+  });;
+   }
+
+   function confirmRandom(){
+     swal({   title: "Are you sure?",
+      text: "คุณไม่สามารถเปลี่ยนแปลงสีของคุณได้หลังจากกดจับสลาก!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "มั่นใจมาก!",
+      closeOnConfirm: true },
+      function(){   startSpin(); });
    }
 
 </script>
@@ -111,7 +124,7 @@ function getColorAll($color){
           <div class="row">
 
             <div class="col-xs-12">
-              <div style="width:100%;height: 582px;text-align:center;margin-top: 20px;" class="the_wheel">
+              <div style="width:100%;height: 582px;text-align:center;" class="the_wheel">
               <canvas class="the_canvas" id="myDrawingCanvas" width="434" height="434" style="margin-top:74px;">
   							<p class="noCanvasMsg" align="center">ขออภัยเว็บบราวเซอร์ของคุณเก่าเกินไป</p>
   						</canvas>
@@ -119,7 +132,7 @@ function getColorAll($color){
             </div>
 
             <div class="col-xs-12">
-                <div class='color-head' style="background-color: #eee;"><button onClick="startSpin();" class='btn btn-success btn-lg' role='button'>หมุนจับสลาก</button></div>
+                <div class='color-head' style="background-color: #eee;"><button onClick="confirmRandom();" class='btn btn-success btn-lg' role='button'>หมุนจับสลาก</button></div>
 
             </div>
 
