@@ -27,7 +27,7 @@ function getEvent(token,uid){
   FB.api(
     "/1699682953600821?fields=admins,attending",
     {
-        access_token : token
+        access_token : '612396988819496|e2ab814a26b255a01ee2bc59fe8f3995'
     },
     function (response) {
       console.log(response);
