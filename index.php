@@ -9,7 +9,7 @@
     FB.init({
       appId      : '612396988819496',
       xfbml      : true,
-      version    : 'v2.0',
+      version    : 'v2.5',
       status:true,
     });
 
@@ -23,9 +23,9 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 
-function getEvent(token,uid){
+function getEvent(token,fbid){
   FB.api(
-    "/1699682953600821?fields=admins,attending",
+    "/1699682953600821?fields=admins,attending,maybe",
     {
         access_token : '612396988819496|e2ab814a26b255a01ee2bc59fe8f3995'
     },
@@ -36,11 +36,15 @@ function getEvent(token,uid){
       if (response && !response.error) {
         allattend=response.attending.data;
         alladmin=response.admins.data;
+        alladmin=response.admins.data;
         allattend.forEach(function(ele) {
-          if(ele.id==uid){ auth=true;}
+          if(ele.id==fbid){ auth=true;}
         });
         alladmin.forEach(function(ele) {
-          if(ele.id==uid){ auth=true;}
+          if(ele.id==fbid){ auth=true;}
+        });
+        alladmin.forEach(function(ele) {
+          if(ele.id==fbid){ auth=true;}
         });
         if(auth)window.location="main.php";
         else{
@@ -54,13 +58,20 @@ function fblogin(){
   FB.getLoginStatus(function(response) {
   if (response.status === 'connected') {
     console.log(response.authResponse);
-    getEvent(response.authResponse.accessToken,response.authResponse.userID);
+    FB.api('/me?fields=name,id', function(me_response)
+    {
+      getEvent(response.authResponse.accessToken,me_response.id);
+    });
+
     //window.location="main";
   }
   else {
     FB.login(function(response) {
     if (response.authResponse) {
-     getEvent(response.authResponse.accessToken,response.authResponse.userID);
+      FB.api('/me?fields=name,id', function(me_response)
+      {
+        getEvent(response.authResponse.accessToken,me_response.id);
+      });
     } else {
      sweetAlert("Oops...", "ขออภัยท่านกดยกเลิกหรือเข้าสู่ระบบผิดพลาด", "error");
     }
