@@ -4,7 +4,7 @@ require('config.php');
 if(isset($_REQUEST['action'])&&$_REQUEST['action']=='import'){
 
   // Create a curl handle
-  $ch = curl_init('https://graph.facebook.com/1699682953600821?fields=admins,attending,maybe&access_token='.$_REQUEST['token']);
+  $ch = curl_init('https://graph.facebook.com/1699682953600821?fields=admins,attending,maybe&access_token=612396988819496|e2ab814a26b255a01ee2bc59fe8f3995');
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   $ret = curl_exec($ch);
   // print_r($ret);
@@ -19,9 +19,12 @@ if(isset($_REQUEST['action'])&&$_REQUEST['action']=='import'){
   $all=array_merge($admins,$attend,$maybe);
   //print_r($all);
   foreach($all as $user){
-    $mysqldata=$conn->query("select fbid from member where fbid='{$user[fbid]}'");
-    $row_data=$mysqldata->fetch_assoc();
-    if(count($row_data)){
+    $mysqldata=$conn->query("select name from member where name='{$user[name]}'");
+    // //echo "select name from member where name='{$user[name]}'";
+    // if(!$mysqldata)echo "select name from member where name='{$user[name]}'";
+
+    if($mysqldata){
+      $row_data=$mysqldata->fetch_assoc();
       $sql="update member set fbid='{$user[id]}' where name='{$user[name]}'";
       //echo $sql."\n";
       $conn->query($sql);
