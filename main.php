@@ -102,7 +102,15 @@ require('config.php');
 
 function getColorAll($color){
   global $conn;
-  $result = $conn->query("select name,fbid,rank  from member where color='{$color}' ");
+  $result = $conn->query("select name,fbid,rank  from member where color='{$color}' and response<>'head'");
+  while($row=$result->fetch_assoc()){
+    echo "<div class='userimg' ><a target='_blank' href='https://www.facebook.com/{$row[fbid]}' class='userlink' data-toggle='tooltip' title='{$row[name]}'><img class='userphoto' src='http://graph.facebook.com/{$row[fbid]}/picture?type=square'></img></a></div>";
+  }
+}
+
+function getHead($color){
+  global $conn;
+  $result = $conn->query("select name,fbid,rank  from member where color='{$color}' and response='head' ");
   while($row=$result->fetch_assoc()){
     echo "<div class='userimg' ><a target='_blank' href='https://www.facebook.com/{$row[fbid]}' class='userlink' data-toggle='tooltip' title='{$row[name]}'><img class='userphoto' src='http://graph.facebook.com/{$row[fbid]}/picture?type=square'></img></a></div>";
   }
@@ -112,7 +120,12 @@ function getColorAll($color){
           <div class="row">
             <div class="col-xs-12 col-md-6 col-lg-3">
                 <div class='color-head' style="background-color: #3498db;">สีฟ้า</div>
-
+                <div class="team-head">
+                  <div class='head-text'>หัวหน้าสี</div>
+                  <?php
+                  getHead('B');
+                  ?>
+                </div>
                 <div id="B-Team"></div>
                 <?php
                 getColorAll('B');
@@ -121,7 +134,12 @@ function getColorAll($color){
 
             <div class="col-xs-12 col-md-6 col-lg-3">
               <div class='color-head' style="background-color: #f1c40f;">สีเหลือง</div>
-
+              <div class="team-head">
+                <div class='head-text'>หัวหน้าสี</div>
+                <?php
+                getHead('Y');
+                ?>
+              </div>
               <div id="Y-Team"></div>
               <?php
               getColorAll('Y');
@@ -130,7 +148,12 @@ function getColorAll($color){
 
             <div class="col-xs-12 col-md-6 col-lg-3">
               <div class='color-head' style="background-color: #FF6CA8;">สีชมพู</div>
-
+              <div class="team-head">
+                <div class='head-text'>หัวหน้าสี</div>
+                <?php
+                getHead('P');
+                ?>
+              </div>
               <div id="P-Team"></div>
               <?php
               getColorAll('P');
@@ -139,7 +162,12 @@ function getColorAll($color){
 
             <div class="col-xs-12 col-md-6 col-lg-3">
               <div class='color-head' style="background-color: #1abc9c">สีเขียว</div>
-
+              <div class="team-head">
+                <div class='head-text'>หัวหน้าสี</div>
+                <?php
+                getHead('G');
+                ?>
+              </div>
               <div id="G-Team"></div>
               <?php
               getColorAll('G');

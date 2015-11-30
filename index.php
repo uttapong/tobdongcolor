@@ -40,12 +40,12 @@ function getEvent(token,fbid){
         allattend.forEach(function(ele) {
           if(ele.id==fbid){ auth=true;}
         });
-        alladmin.forEach(function(ele) {
-          if(ele.id==fbid){ auth=true;}
-        });
-        alladmin.forEach(function(ele) {
-          if(ele.id==fbid){ auth=true;}
-        });
+        // alladmin.forEach(function(ele) {
+        //   if(ele.id==fbid){ auth=true;}
+        // });
+        // alladmin.forEach(function(ele) {
+        //   if(ele.id==fbid){ auth=true;}
+        // });
         if(auth)window.location="main.php";
         else{
           swal("ขออภัย","ท่านยังไม่ได้กดเข้าร่วมกีฬาสีประจำปี\nกรุณากดเข้าร่วมกิจกรรมใน Facebook เพื่อเลือกสีของท่าน!");

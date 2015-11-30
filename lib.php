@@ -69,7 +69,7 @@ function random($rank,$fbid){
   while($row = $result->fetch_assoc())
   {
     if($rank=='C'||$rank=='P')
-      $arr_result[$row[color]]=6-$row[remain];
+      $arr_result[$row[color]]=8-$row[remain];
     elseif($rank=='S')
       $arr_result[$row[color]]=4-$row[remain];
     else $arr_result[$row[color]]=10-$row[remain];
