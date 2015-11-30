@@ -20,6 +20,7 @@ if(isset($_REQUEST['action'])&&$_REQUEST['action']=='import'){
   //print_r($all);
   foreach($all as $user){
     $mysqldata=$conn->query("select name from member where name='{$user[name]}'");
+    $mysqldata2=$conn->query("select name from member where fbid='{$user[id]}'");
     // //echo "select name from member where name='{$user[name]}'";
     // if(!$mysqldata)echo "select name from member where name='{$user[name]}'";
 
@@ -29,8 +30,20 @@ if(isset($_REQUEST['action'])&&$_REQUEST['action']=='import'){
       //echo $sql."\n";
       $conn->query($sql);
     }
+    elseif($mysqldata2){
+      $row_data=$mysqldata->fetch_assoc();
+      $sql="update member set fbid='{$user[id]}' where name='{$user[name]}'";
+      //echo $sql."\n";
+      $conn->query($sql);
+    }
     else{
-      $conn->query("insert into member set fbid='{$user[id]}',name='{$user[name]}',response='{$user[rsvp_status]}';");
+      $sql="insert into member set fbid='{$user[id]}',name='".mysqli_real_escape_string($conn,$user[name])."',response='{$user[rsvp_status]}';";
+      echo $sql;
+      try {
+        $conn->query($sql);
+      }
+      catch(Exception $e) {
+      }
     }
 
   }
