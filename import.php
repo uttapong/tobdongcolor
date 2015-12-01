@@ -4,13 +4,14 @@ require('config.php');
 if(isset($_REQUEST['action'])&&$_REQUEST['action']=='import'){
 
   // Create a curl handle
-  $ch = curl_init('https://graph.facebook.com/1699682953600821?fields=admins,attending,maybe&access_token=612396988819496|e2ab814a26b255a01ee2bc59fe8f3995');
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-  $ret = curl_exec($ch);
+  //$ch = curl_init('https://graph.facebook.com/1699682953600821?fields=admins,attending,maybe&access_token=612396988819496|e2ab814a26b255a01ee2bc59fe8f3995');
+  $ret=file_get_contents('https://graph.facebook.com/1699682953600821?fields=admins,attending,maybe&access_token=612396988819496|e2ab814a26b255a01ee2bc59fe8f3995');
+  // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  // $ret = curl_exec($ch);
   // print_r($ret);
   // exit(0);
   // Close handle
-  curl_close($ch);
+  // curl_close($ch);
   $users=json_decode($ret,true);
   $admins=$users[admins][data];
   $attend=$users[attending][data];
@@ -21,24 +22,24 @@ if(isset($_REQUEST['action'])&&$_REQUEST['action']=='import'){
   foreach($all as $user){
     $mysqldata=$conn->query("select name from member where name='{$user[name]}'");
     $mysqldata2=$conn->query("select name from member where fbid='{$user[id]}'");
-    // //echo "select name from member where name='{$user[name]}'";
+    echo "select name from member where name='{$user[name]}' \n";
     // if(!$mysqldata)echo "select name from member where name='{$user[name]}'";
 
-    if($mysqldata){
+    if($mysqldata->num_rows>0){
       $row_data=$mysqldata->fetch_assoc();
       $sql="update member set fbid='{$user[id]}' where name='{$user[name]}'";
-      //echo $sql."\n";
+      echo $sql."\n";
       $conn->query($sql);
     }
-    elseif($mysqldata2){
-      $row_data=$mysqldata->fetch_assoc();
+    else if($mysqldata2->num_rows>0){
+      $row_data=$mysqldata2->fetch_assoc();
       $sql="update member set fbid='{$user[id]}' where name='{$user[name]}'";
-      //echo $sql."\n";
+      echo $sql."sql2-------\n";
       $conn->query($sql);
     }
     else{
       $sql="insert into member set fbid='{$user[id]}',name='".mysqli_real_escape_string($conn,$user[name])."',response='{$user[rsvp_status]}';";
-      echo $sql;
+      echo $sql."\n";
       try {
         $conn->query($sql);
       }
