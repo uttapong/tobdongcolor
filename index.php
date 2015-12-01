@@ -23,7 +23,7 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 
-function getEvent(token,fbid){
+function getEvent(token,fbid,name){
   FB.api(
     "/1699682953600821?fields=admins,attending,maybe",
     {
@@ -38,10 +38,10 @@ function getEvent(token,fbid){
         alladmin=response.admins.data;
         alladmin=response.admins.data;
         allattend.forEach(function(ele) {
-          if(ele.id==fbid){ auth=true;}
+          if(ele.id==fbid||ele.name==name){ auth=true;}
         });
         alladmin.forEach(function(ele) {
-          if(ele.id==fbid){ auth=true;}
+          if(ele.id==fbid||ele.name==name){ auth=true;}
         });
         // alladmin.forEach(function(ele) {
         //   if(ele.id==fbid){ auth=true;}
@@ -70,7 +70,7 @@ function fblogin(){
     if (response.authResponse) {
       FB.api('/me?fields=name,id', function(me_response)
       {
-        getEvent(response.authResponse.accessToken,me_response.id);
+        getEvent(response.authResponse.accessToken,me_response.id,me_response.name);
       });
     } else {
      sweetAlert("Oops...", "ขออภัยท่านกดยกเลิกหรือเข้าสู่ระบบผิดพลาด", "error");
