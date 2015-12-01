@@ -31,17 +31,17 @@ function getEvent(token,fbid,name){
     },
     function (response) {
       console.log(response);
-      var auth=false;
+      var auth=true;
 
       if (response && !response.error) {
         allattend=response.attending.data;
         alladmin=response.admins.data;
         alladmin=response.admins.data;
         allattend.forEach(function(ele) {
-          if(ele.id==fbid||ele.name==name){ auth=true;}
+          if(ele.name==name){ auth=true;}
         });
         alladmin.forEach(function(ele) {
-          if(ele.id==fbid||ele.name==name){ auth=true;}
+          if(ele.name==name){ auth=true;}
         });
         // alladmin.forEach(function(ele) {
         //   if(ele.id==fbid){ auth=true;}
