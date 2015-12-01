@@ -41,7 +41,7 @@ function getquota($rank){
   if($rank=='C'||$rank=='P')
     $arr_result=['G'=>8,'B'=>8,'P'=>8,'Y'=>8];
   else
-    $arr_result=['G'=>4,'B'=>4,'P'=>4,'Y'=>4];
+    $arr_result=['G'=>4,'B'=>4,'P'=>4,'Y'=>4]; 
 
 
   $result = $conn->query("select color,count(id) as remain from member where player=1 and rank='{$rank}' group by color");
