@@ -20,7 +20,7 @@
       //console.log(response);
     if (response.status === 'connected') {
       //var fbid=response.authResponse.userID;
-      FB.api('/me?fields=picture.width(120).height(120),name,id', function(response)
+      FB.api('/me?fields=picture.width(200).height(200),name,id', function(response)
       {
         console.log(response);
         $('#loading').hide()
