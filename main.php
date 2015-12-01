@@ -105,7 +105,10 @@ function getColorAll($color){
   global $conn;
   $result = $conn->query("select name,fbid,rank  from member where color='{$color}' and response<>'head'");
   while($row=$result->fetch_assoc()){
-    echo "<div class='userimg' ><a target='_blank' href='https://www.facebook.com/{$row[fbid]}' class='userlink' data-toggle='tooltip' title='{$row[name]}'><img class='userphoto' src='http://graph.facebook.com/{$row[fbid]}/picture?type=square&height=60&width=60' style='height: 50px;width: 50px;'></img></a></div>";
+  //  echo strpos($row[fbid],'NOFB')!=false;
+    if(strpos($row[fbid],'NOFB')!==false)$imgsrc='images/anor.jpg';
+    else $imgsrc="http://graph.facebook.com/{$row[fbid]}/picture?type=square&height=60&width=60";
+    echo "<div class='userimg' ><a target='_blank' href='https://www.facebook.com/{$row[fbid]}' class='userlink' data-toggle='tooltip' title='{$row[name]}'><img class='userphoto' src='{$imgsrc}' style='height: 50px;width: 50px;'></img></a></div>";
   }
 }
 
@@ -113,7 +116,10 @@ function getHead($color){
   global $conn;
   $result = $conn->query("select name,fbid,rank  from member where color='{$color}' and response='head' ");
   while($row=$result->fetch_assoc()){
-    echo "<div class='userimg' ><a target='_blank' href='https://www.facebook.com/{$row[fbid]}' class='userlink' data-toggle='tooltip' title='{$row[name]}'><img class='userphoto' src='http://graph.facebook.com/{$row[fbid]}/picture?type=square&height=60&width=60' style='height: 50px;width: 50px;'></img></a></div>";
+
+    if(strpos($row[fbid],'NOFB')!==false)$imgsrc='images/anor.jpg';
+    else $imgsrc="http://graph.facebook.com/{$row[fbid]}/picture?type=square&height=60&width=60";
+    echo "<div class='userimg' ><a target='_blank' href='https://www.facebook.com/{$row[fbid]}' class='userlink' data-toggle='tooltip' title='{$row[name]}'><img class='userphoto' src='{$imgsrc}' style='height: 50px;width: 50px;'></img></a></div>";
   }
 }
 ?>
