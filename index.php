@@ -40,9 +40,9 @@ function getEvent(token,fbid){
         allattend.forEach(function(ele) {
           if(ele.id==fbid){ auth=true;}
         });
-        // alladmin.forEach(function(ele) {
-        //   if(ele.id==fbid){ auth=true;}
-        // });
+        alladmin.forEach(function(ele) {
+          if(ele.id==fbid){ auth=true;}
+        });
         // alladmin.forEach(function(ele) {
         //   if(ele.id==fbid){ auth=true;}
         // });
