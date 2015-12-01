@@ -66,7 +66,7 @@
      if(res.color)$('#mycolor').html( res.color );else $('#mycolor').html('-');
      if(res.rank){
        $('#myrank').html( res.rank );
-       if(!res.color)$('#mycolor').html(' <a href="random.php" class="btn btn-lg btn-success" role="button">จับสลากเลือกสีสำหรับนักกีฬา</a> <button class="btn btn-lg btn-warning" role="button">จับสลากเลือกสีสำหรับกองเชียร์</button>');
+       if(!res.color)$('#mycolor').html(' <a href="random.php" class="btn btn-lg btn-success" role="button">จับสลากเลือกสีสำหรับนักกีฬา</a>');
      }else $('#myrank').html('ท่านยังไม่ถูกประเมินมือ');
      $('#user-data').slideDown();
 
