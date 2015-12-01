@@ -22,24 +22,24 @@ if(isset($_REQUEST['action'])&&$_REQUEST['action']=='import'){
   foreach($all as $user){
     $mysqldata=$conn->query("select name from member where name='{$user[name]}'");
     $mysqldata2=$conn->query("select name from member where fbid='{$user[id]}'");
-    echo "select name from member where name='{$user[name]}' \n";
+  //  echo "select name from member where name='{$user[name]}' \n";
     // if(!$mysqldata)echo "select name from member where name='{$user[name]}'";
 
     if($mysqldata->num_rows>0){
       $row_data=$mysqldata->fetch_assoc();
       $sql="update member set fbid='{$user[id]}' where name='{$user[name]}'";
-      echo $sql."\n";
+  //    echo $sql."\n";
       $conn->query($sql);
     }
     else if($mysqldata2->num_rows>0){
       $row_data=$mysqldata2->fetch_assoc();
       $sql="update member set fbid='{$user[id]}' where name='{$user[name]}'";
-      echo $sql."sql2-------\n";
+  //    echo $sql."sql2-------\n";
       $conn->query($sql);
     }
     else{
       $sql="insert into member set fbid='{$user[id]}',name='".mysqli_real_escape_string($conn,$user[name])."',response='{$user[rsvp_status]}';";
-      echo $sql."\n";
+  //    echo $sql."\n";
       try {
         $conn->query($sql);
       }

@@ -63,6 +63,7 @@
      data: { action:'getinfo',fbid: fbid }
    }).done(function(res) {
      console.log(res);
+
      if(res.color)$('#mycolor').html( res.color );else $('#mycolor').html('-');
      if(res.rank){
        $('#myrank').html( res.rank );
@@ -104,7 +105,7 @@ function getColorAll($color){
   global $conn;
   $result = $conn->query("select name,fbid,rank  from member where color='{$color}' and response<>'head'");
   while($row=$result->fetch_assoc()){
-    echo "<div class='userimg' ><a target='_blank' href='https://www.facebook.com/{$row[fbid]}' class='userlink' data-toggle='tooltip' title='{$row[name]}'><img class='userphoto' src='http://graph.facebook.com/{$row[fbid]}/picture?type=square'></img></a></div>";
+    echo "<div class='userimg' ><a target='_blank' href='https://www.facebook.com/{$row[fbid]}' class='userlink' data-toggle='tooltip' title='{$row[name]}'><img class='userphoto' src='http://graph.facebook.com/{$row[fbid]}/picture?type=square&height=60&width=60'></img></a></div>";
   }
 }
 
@@ -112,7 +113,7 @@ function getHead($color){
   global $conn;
   $result = $conn->query("select name,fbid,rank  from member where color='{$color}' and response='head' ");
   while($row=$result->fetch_assoc()){
-    echo "<div class='userimg' ><a target='_blank' href='https://www.facebook.com/{$row[fbid]}' class='userlink' data-toggle='tooltip' title='{$row[name]}'><img class='userphoto' src='http://graph.facebook.com/{$row[fbid]}/picture?type=square'></img></a></div>";
+    echo "<div class='userimg' ><a target='_blank' href='https://www.facebook.com/{$row[fbid]}' class='userlink' data-toggle='tooltip' title='{$row[name]}'><img class='userphoto' src='http://graph.facebook.com/{$row[fbid]}/picture?type=square&height=60&width=60' style='height: 50px;width: 50px;'></img></a></div>";
   }
 }
 ?>

@@ -28,9 +28,12 @@ foreach ($json as $user) {
     //mysqli_stmt_execute($stmt);
 }*/
 function getInfo($fbid){
-  echo $conn;
+  //echo $conn;
   global $conn;
-  $result = $conn->query("select rank,color from member where fbid='{$fbid}'");
+  if(isset($_REQUEST['token'])){
+    $result = $conn->query("select name,rank,color from member where fbid='{$_REQUEST['token']}' and color='N'");
+  }
+  else $result = $conn->query("select name,rank,color from member where fbid='{$fbid}'");
   $row = $result->fetch_assoc();
   if(!$row)echo 0;
   else echo json_encode($row);
@@ -41,7 +44,7 @@ function getquota($rank){
   if($rank=='C'||$rank=='P')
     $arr_result=['G'=>8,'B'=>8,'P'=>8,'Y'=>8];
   else
-    $arr_result=['G'=>4,'B'=>4,'P'=>4,'Y'=>4]; 
+    $arr_result=['G'=>4,'B'=>4,'P'=>4,'Y'=>4];
 
 
   $result = $conn->query("select color,count(id) as remain from member where player=1 and rank='{$rank}' group by color");

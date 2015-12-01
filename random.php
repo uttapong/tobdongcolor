@@ -7,7 +7,7 @@
     </head>
     <body>
       <script>
-
+<?php if(isset($_REQUEST['token'])){ ?>
   window.fbAsyncInit = function() {
 
 
@@ -17,6 +17,8 @@
       version    : 'v2.0',
       status:true,
     });
+
+    <?php if(!isset($_REQUEST['token'])){ ?>
 
     FB.getLoginStatus(function(response) {
       //console.log(response);
@@ -40,9 +42,15 @@
   });
     }
   });
+<?php }else { ?>
+  $( document ).ready(function() {
+  getInfo('<?php echo  $_REQUEST['token'];?>');
+});
 
+<?php }  ?>
 
   };
+  <?php } ?>
 
   (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
@@ -59,15 +67,22 @@
 
 var userRank='NA';
    function getInfo(fbid){
+     <?php if(isset($_REQUEST['token'])){echo "fbid='".$_REQUEST['token']."';";  }?>
      $.ajax({
      url: "lib.php",
      method: "POST",
-     data: { action:'getinfo',fbid: fbid }
+     data: { action:'getinfo',fbid: fbid <?php if(isset($_REQUEST['token'])){echo ",token:'".$_REQUEST['token']."'";  }?>}
    }).done(function(res) {
+     <?php if(isset($_REQUEST['token'])){
+      echo "$('#loading').hide();";
+       echo "$('#myname').html( res.name );";  }?>
      if(res.rank){
        $('#myrank').html( res.rank );
        userRank=res.rank;
-       begin(userRank,fbid);
+       <?php if(isset($_REQUEST['token'])){echo "begin(userRank,fbid);";  }else {
+         echo "begin(userRank,{$_REQUEST['token']});";
+       }?>
+
        //if(!res.color)$('#mycolor').html(' <button class="btn btn-lg btn-success" role="button">จับสลากเลือกสีสำหรับนักกีฬา</button> <button class="btn btn-lg btn-warning" role="button">จับสลากเลือกสีสำหรับกองเชียร์</button>');
      }else $('#myrank').html('ท่านยังไม่ถูกประเมินมือ');
      $('#user-data').slideDown();
