@@ -370,7 +370,7 @@ function doSpin()
 					function(){
 						FB.ui({
   method: 'share',
-  href: 'https://www.tobdong.ski',
+  href: 'http://www.tobdong.ski',
 }, function(response){
 	window.location="main.php";
 });
