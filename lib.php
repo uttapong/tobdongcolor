@@ -40,16 +40,18 @@ function getquota($rank){
   global $conn;
   if($rank=='C'||$rank=='P')
     $arr_result=['G'=>8,'B'=>8,'P'=>8,'Y'=>8];
-  else if($rank=='S')
+  else
     $arr_result=['G'=>4,'B'=>4,'P'=>4,'Y'=>4];
-  else $arr_result=['G'=>10,'B'=>10,'P'=>10,'Y'=>10];
 
 
-  $arr_result=['G'=>16,'B'=>16,'P'=>16,'Y'=>16];
   $result = $conn->query("select color,count(id) as remain from member where player=1 and rank='{$rank}' group by color");
   while($row = $result->fetch_assoc())
   {
-    $arr_result[$row[color]]=16-$row[remain];
+    if($rank=='C'||$rank=='P')
+      $arr_result[$row[color]]=8-$row[remain];
+    else{
+      $arr_result[$row[color]]=4-$row[remain];
+    }
   }
   /*foreach ($row as $user) {
     $result = $conn->query("update member set response='{$user->rsvp_status}' where fbid='{$user->id}'");
