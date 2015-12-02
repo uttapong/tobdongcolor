@@ -27,13 +27,13 @@ if(isset($_REQUEST['action'])&&$_REQUEST['action']=='import'){
 
     if($mysqldata->num_rows>0){
       $row_data=$mysqldata->fetch_assoc();
-      $sql="update member set fbid='{$user[id]}' where name='{$user[name]}'";
+      $sql="update member set fbid='{$user[id]}',response='{$user[rsvp_status]}' where name='{$user[name]}'";
   //    echo $sql."\n";
       $conn->query($sql);
     }
     else if($mysqldata2->num_rows>0){
       $row_data=$mysqldata2->fetch_assoc();
-      $sql="update member set fbid='{$user[id]}' where name='{$user[name]}'";
+      $sql="update member set fbid='{$user[id]}',response='{$user[rsvp_status]}' where name='{$user[name]}'";
   //    echo $sql."sql2-------\n";
       $conn->query($sql);
     }
