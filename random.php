@@ -7,7 +7,7 @@
     </head>
     <body>
       <script>
-<?php if(isset($_REQUEST['token'])){ ?>
+<?php if(!isset($_REQUEST['token'])){ ?>
   window.fbAsyncInit = function() {
 
 
@@ -79,12 +79,17 @@ var userRank='NA';
      if(res.rank){
        $('#myrank').html( res.rank );
        userRank=res.rank;
-       <?php if(isset($_REQUEST['token'])){echo "begin(userRank,fbid);";  }else {
-         echo "begin(userRank,{$_REQUEST['token']});";
-       }?>
+       <?php
+       if(isset($_REQUEST['token']))
+       {
+         echo "begin(userRank,'{$_REQUEST['token']}');";
+       }
+       else {
+         echo "begin(userRank,fbid);";
+       }
+       ?>
 
-       //if(!res.color)$('#mycolor').html(' <button class="btn btn-lg btn-success" role="button">จับสลากเลือกสีสำหรับนักกีฬา</button> <button class="btn btn-lg btn-warning" role="button">จับสลากเลือกสีสำหรับกองเชียร์</button>');
-     }else $('#myrank').html('ท่านยังไม่ถูกประเมินมือ');
+    }else $('#myrank').html('ท่านยังไม่ถูกประเมินมือ');
      $('#user-data').slideDown();
    }).fail(function() {
     swal("อินเทอร์เนตกากมาก", "กรุณาพิจารณาเปลี่ยนค่ายอินเทอร์เนต", "error");
